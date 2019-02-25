@@ -1,0 +1,91 @@
+.link {
+  float: left;
+  text-decoration: none;
+}
+
+.list ol {
+  text-align: left;
+}
+
+.list li {
+  list-style: none;
+  padding: 0.7rem;
+  color: #173e43;
+  font-weight: 600;
+  border: 1px solid #dddfd4;
+  border-radius: 0.2rem;
+  margin-bottom: 0.6rem;
+  background: white;
+  box-shadow: 1px 1px 3px 0px rgba(134, 134, 134, 0.21);
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5 ease;
+  max-width: 100%;
+  font-size: 1rem;
+}
+
+.list li:hover {
+  background: lightcyan;
+  border: 1 px #dddfd4;
+}
+
+.done {
+  background: #3fb0ac !important;
+  text-decoration: line-through;
+  box-shadow: 0px 0px 0px 0px rgba(134, 134, 134, 0.21) !important;
+  border: 0.1rem !important;
+}
+
+.done:hover {
+  background: #173e43 !important;
+  color: white;
+}
+
+.done:hover button {
+  color: white;
+}
+
+.delete {
+  display: none;
+}
+
+.share {
+  background-color: white;
+  border: 0.05rem solid #173e43;
+  color: #173e43;
+  text-align: center;
+  padding: 0.7rem 1rem;
+  min-width: 4rem;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  margin: 0.1rem;
+}
+
+.share:hover {
+  background-color: #3fb0ac;
+  color: white;
+  border: 0.05rem #3fb0ac !important;
+}
+
+.shared {
+  background-color: #3fb0ac;
+  color: white;
+  border: 0.05rem solid #3fb0ac;
+  color: #173e43;
+  padding: 0.7rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  min-width: 4rem;
+  margin: 0.1rem;
+}

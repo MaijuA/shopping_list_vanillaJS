@@ -1,0 +1,26 @@
+.home {
+  text-align: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  color: #173e43;
+  text-decoration: none;
+}
+
+.home li {
+  font-size: 1.2rem;
+  padding: 0.7rem;
+  border: solid 0.1rem #ddd;
+  background-color: white;
+  margin-bottom: 0.5rem;
+  border-radius: 0.2rem;
+  text-align: left;
+}
+
+.home li:hover {
+  background: lightcyan;
+}
+
+.listParagraph {
+  font-size: 0.9rem;
+  color: darkred;
+}
