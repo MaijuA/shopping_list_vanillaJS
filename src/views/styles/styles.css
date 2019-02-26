@@ -1,137 +1,138 @@
 html {
-    background-color: #f2efe8;
-    text-align: center;
-    color: #173e43;
-    font-family: "Karla", sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-  
-  body {
-    min-height: 100%;
-    position: relative;
-    padding: 0;
-    margin: 0;
-  }
-  
-  section {
-    padding: 10px;
-    padding-bottom: 3rem;
-  }
-  
-  footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 3rem;
-    background-color: #b3c2bf;
-    color: white;
-  }
-  
-  a {
-    color: #173e43;
-    text-decoration: none;
-  }
-  
-  .section a:hover {
-    color: #173e43;
-    text-decoration: underline;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-    color: #173e43;
-    position: relative;
-    display: inline-block;
-    margin: 0;
-    margin-bottom: 0.5rem;
-    line-height: 1em;
-  }
-  
-  input[type="text"] {
-    padding: 0.9rem 0.9rem;
-    margin: 1rem 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 0.2rem;
-    box-sizing: border-box;
-    max-width: 100%;
-    box-shadow: inset 1px 1px 3px 0px rgba(134, 134, 134, 0.21);
-  }
-  
-  /* Buttons to add lists or items */
-  .button {
-    background-color: #3fb0ac;
-    color: white;
-    border: 0.1rem solid #3fb0ac;
-    padding: 0.7rem 2rem;
-    text-align: center;
-    margin-left: 0.5rem;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    border-radius: 0.1rem;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-  }
-  
-  .button:hover {
-    background-color: #173e43;
-    color: white;
-    border: 0.1rem #173e43;
-  }
-  
+  background-color: #f7f4e9;
+  text-align: center;
+  color: #173e43;
+  font-family: "Karla", sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+section {
+  padding: 0.5rem;
+  padding-bottom: 3rem;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3rem;
+  background-color: #f7f4e9;
+  color: #173e43;
+}
+
+a {
+  color: #173e43;
+  text-decoration: none;
+}
+
+.section a:hover {
+  color: #173e43;
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #173e43;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  line-height: 1em;
+}
+
+input[type="text"] {
+  padding: 0.9rem 0.9rem;
+  margin: 1rem 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 0.2rem;
+  box-sizing: border-box;
+  max-width: 100%;
+  box-shadow: inset 1px 1px 3px 0px rgba(134, 134, 134, 0.21);
+  color: grey;
+}
+
+/* Buttons to add lists or items */
+.button {
+  background-color: #3fb0ac;
+  background-color: #438945;
+  color: white;
+  border: 0.1rem solid #438945;
+  padding: 0.7rem 2rem;
+  text-align: center;
+  margin-left: 0.5rem;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  border-radius: 0.1rem;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #173e43;
+  color: white;
+  border: 0.1rem #173e43;
+}
+
+ol {
+  list-style-type: none;
+  padding: 0px;
+}
+
+ol li {
+  padding-bottom: 1rem;
+}
+
+/* item delete button */
+li > button {
+  font-weight: normal;
+  background: none;
+  border: none;
+  float: right;
+  font-weight: 800;
+  color: #173e43;
+}
+
+@media screen and (min-width: 600px) {
   ol {
-    list-style-type: none;
-    padding: 0px;
+    columns: 2;
+    padding: 16px 0;
+    line-height: 20px;
   }
-  
-  ol li {
-    padding-bottom: 1rem;
+
+  ol > li {
+    display: inline-block;
+    width: 90%;
   }
-  
-  /* item delete button */
-  li > button {
-    font-weight: normal;
-    background: none;
-    border: none;
-    float: right;
-    font-weight: 800;
-    color: #173e43;
+
+  .home ol {
+    columns: 1;
   }
-  
-  @media screen and (min-width: 600px) {
-    ol {
-      columns: 2;
-      padding: 16px 0;
-      line-height: 20px;
-    }
-  
-    ol > li {
-      display: inline-block;
-      width: 90%;
-    }
-  
-    .home ol {
-      columns: 1;
-    }
+}
+
+@media screen and (min-width: 900px) {
+  ol {
+    columns: 3;
+    padding: 16px 0;
+    line-height: 20px;
   }
-  
-  @media screen and (min-width: 900px) {
-    ol {
-      columns: 3;
-      padding: 16px 0;
-      line-height: 20px;
-    }
-  
-    ol > li {
-      display: inline-block;
-      width: 90%;
-    }
-  
-    .home ol {
-      columns: 2;
-    }
+
+  ol > li {
+    display: inline-block;
+    width: 90%;
   }
-  
+
+  .home ol {
+    columns: 2;
+  }
+}

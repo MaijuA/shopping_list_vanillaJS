@@ -28,7 +28,9 @@ function createListElement(object) {
   return li;
 }
 
-function eventHandlerAdd() {
+function eventHandlerAdd(event) {
+  event = event || window.event;
+
   if (newItem.value.length < 1) return;
   let alreadyExists = names.find(name => {
     return newItem.value.toLowerCase() === name.name.toLowerCase();
@@ -54,6 +56,7 @@ function eventHandlerAdd() {
 }
 
 function eventHandler(event) {
+  event = event || window.event;
   // mark item as bought/not bought
   let str = event.target.textContent;
   if (event.target.classList.contains("li")) {
@@ -73,7 +76,8 @@ function eventHandler(event) {
   localStorage.setItem(listTitle + "items", JSON.stringify(names));
 }
 
-function eventHandlerShare() {
+function eventHandlerShare(event) {
+  event = event || window.event;
   let str = event.target.textContent;
   if (event.target.classList.contains("share")) {
     let confirmUser = confirm(
@@ -144,6 +148,7 @@ function isListShared(friendObject) {
 let List = {
   render: async () => {
     // get the list title
+    listTitle = "";
     let request = Utils.parseRequestURL();
     for (let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i);
@@ -158,14 +163,18 @@ let List = {
 
     // add friends and sharing information
     friends = [];
+    console.log(listTitle);
     let retrievedDataFriends = localStorage.getItem(listTitle + "friends");
-    if (retrievedDataFriends === "null") {
+    console.log(retrievedDataFriends);
+    if (retrievedDataFriends === "null" || retrievedDataFriends === null) {
       localStorage.setItem(
         listTitle + "friends",
         JSON.stringify(friendsDefault) // default friends to a new list
       );
+      friends = friendsDefault;
+    } else {
+      friends = JSON.parse(retrievedDataFriends);
     }
-    friends = JSON.parse(retrievedDataFriends);
 
     // get list items
     let retrievedDataItems = localStorage.getItem(listTitle + "items");
@@ -186,7 +195,7 @@ let List = {
     <a class="link" href="/#/"><<</a><br>
         <h1>${listTitle} </h1>
     <form id="add-to-list">
-        <input type="text" id="newItem" maxlength="27">
+        <input type="text" id="newItem" maxlength="27" placeHolder="Add new item...">
         <button id="addItem" class="button">Add</button>
     </form>
     <ol id="list" class="list">

@@ -17,22 +17,17 @@
   margin-bottom: 0.6rem;
   background: white;
   box-shadow: 1px 1px 3px 0px rgba(134, 134, 134, 0.21);
-  transition: all 0.75s ease;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  -o-transition: all 0.5 ease;
   max-width: 100%;
   font-size: 1rem;
 }
 
 .list li:hover {
-  background: lightcyan;
+  background: whitesmoke;
   border: 1 px #dddfd4;
 }
 
 .done {
-  background: #3fb0ac !important;
+  background: #3cbcc3 !important;
   text-decoration: line-through;
   box-shadow: 0px 0px 0px 0px rgba(134, 134, 134, 0.21) !important;
   border: 0.1rem !important;
@@ -62,21 +57,17 @@
   display: inline-block;
   font-size: 0.8rem;
   border-radius: 0.5rem;
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
   margin: 0.1rem;
 }
 
 .share:hover {
-  background-color: #3fb0ac;
-  color: white;
-  border: 0.05rem #3fb0ac !important;
+  background-color: #f6f6f8;
 }
 
 .shared {
-  background-color: #3fb0ac;
+  background-color: #eba63f;
   color: white;
-  border: 0.05rem solid #3fb0ac;
+  border: 0.05rem solid #eba63f;
   color: #173e43;
   padding: 0.7rem 1rem;
   text-align: center;
@@ -84,8 +75,6 @@
   display: inline-block;
   font-size: 0.8rem;
   border-radius: 0.5rem;
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
   min-width: 4rem;
   margin: 0.1rem;
 }

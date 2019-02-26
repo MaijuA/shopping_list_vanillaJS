@@ -12,7 +12,7 @@ function createListItem(name) {
   // list of friends with whom the list is shared with
   let shared = [];
   let friends = localStorage.getItem(name + "friends");
-  if (friends !== "null") {
+  if (friends !== "null" && friends !== null) {
     friends = JSON.parse(friends);
     friends.map(friend => {
       if (friend.shared) {
@@ -37,7 +37,8 @@ export function createDeleteButton(className) {
   return dBtn;
 }
 
-function eventHandlerAdd() {
+function eventHandlerAdd(event) {
+  event = event || window.event;
   if (newItem.value.length < 1) return;
   let alreadyExists = listNames.find(name => {
     return newItem.value.toLowerCase() === name.toLowerCase();
@@ -78,10 +79,11 @@ function eventHandlerAdd() {
   newItem.value = "";
 
   // open new list
-  // window.location.replace("/#/p/" + (counter - 1));
+  window.location.replace("/#/p/" + (counter - 1));
 }
 
-function eventHandlerDelete() {
+function eventHandlerDelete(event) {
+  event = event || window.event;
   if (event.target.classList.contains("dBtnHome")) {
     let confirmUser = confirm("Do you want to delete the list?");
     if (confirmUser) {
@@ -97,7 +99,8 @@ function eventHandlerDelete() {
   }
 }
 
-function eventHandlerOpenList() {
+function eventHandlerOpenList(event) {
+  event = event || window.event;
   if (event.target.classList.contains("homeli")) {
     window.location.replace(
       event.target.querySelector("a").getAttribute("href")
@@ -134,7 +137,7 @@ let Home = {
             <section class="home">
                 <h1> Shopping lists </h1>
                 <form id="add-to-list">
-                      <input type="text" id="newItem" maxlength="27">
+                      <input type="text" id="newItem" maxlength="27" placeHolder="Add new list..." onClick=this.form.reset()>
                       <button id="addItem" class="button">Add</button>
                 </form>
                 <ol id="list"> ` +

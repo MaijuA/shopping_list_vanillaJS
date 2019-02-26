@@ -1,9 +1,9 @@
 .home {
   text-align: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0.5rem;
   color: #173e43;
   text-decoration: none;
+  padding-bottom: 3rem;
 }
 
 .home li {
@@ -11,16 +11,16 @@
   padding: 0.7rem;
   border: solid 0.1rem #ddd;
   background-color: white;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   border-radius: 0.2rem;
   text-align: left;
 }
 
 .home li:hover {
-  background: lightcyan;
+  background: #f6f6f8;
 }
 
 .listParagraph {
   font-size: 0.9rem;
-  color: darkred;
+  color: #e40c2b;
 }

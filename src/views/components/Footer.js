@@ -4,7 +4,7 @@ let Footer = {
           <footer class="footer">
               <div>
                   <p>
-                  
+                  Footer
                   </p>
               </div>
           </footer>
