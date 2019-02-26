@@ -9,7 +9,7 @@
   "scripts": {
     "server": "live-server src --verbose",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "app.js"
+    "start": "src/app.js"
   },
   "keywords": [],
   "author": "",
