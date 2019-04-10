@@ -1,9 +1,9 @@
-let Footer = {
+const Footer = {
   render: async () => {
-    let view = `
+    const view = `
           <footer class="footer">
               <div>
-                  <p>
+                  <p tabindex="0">
                   Footer
                   </p>
               </div>

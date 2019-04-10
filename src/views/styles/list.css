@@ -26,19 +26,19 @@
   border: 1 px #dddfd4;
 }
 
-.done {
+.bought {
   background: #3cbcc3 !important;
   text-decoration: line-through;
   box-shadow: 0px 0px 0px 0px rgba(134, 134, 134, 0.21) !important;
   border: 0.1rem !important;
 }
 
-.done:hover {
+.bought:hover {
   background: #173e43 !important;
   color: white;
 }
 
-.done:hover button {
+.bought:hover button {
   color: white;
 }
 
@@ -46,7 +46,7 @@
   display: none;
 }
 
-.share {
+.unshared {
   background-color: white;
   border: 0.05rem solid #173e43;
   color: #173e43;
@@ -60,13 +60,12 @@
   margin: 0.1rem;
 }
 
-.share:hover {
+.unshared:hover {
   background-color: #f6f6f8;
 }
 
 .shared {
   background-color: #eba63f;
-  color: white;
   border: 0.05rem solid #eba63f;
   color: #173e43;
   padding: 0.7rem 1rem;

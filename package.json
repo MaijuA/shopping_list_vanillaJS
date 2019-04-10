@@ -1,20 +1,27 @@
 {
-  "name": "shopping-list",
+  "name": "shopping_list",
   "version": "1.0.0",
   "description": "Vanilla JS SPA",
   "main": "app.js",
-  "directories": {
-    "lib": "lib"
-  },
+  "directories": {},
   "scripts": {
-    "server": "live-server src --verbose",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js"
+    "start": "http-server src --verbose",
+    "build": "babel src -d build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "live-server": "^1.2.1"
+    "@babel/runtime": "^7.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "http-server": "^0.11.1"
   }
 }

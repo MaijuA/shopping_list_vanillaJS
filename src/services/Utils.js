@@ -1,5 +1,6 @@
 const Utils = {
   parseRequestURL: () => {
+    // location hash returns the anchor part of a url (including #)
     let url = location.hash.slice(1).toLowerCase() || "/";
     let r = url.split("/");
     let request = {

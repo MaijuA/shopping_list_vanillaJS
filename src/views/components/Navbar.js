@@ -1,22 +1,18 @@
 const user = "Sam";
 
-let Navbar = {
+const Navbar = {
   render: async () => {
-    let view = `
-             <nav class="navbar" >
-             <a href="/#/" class="logo">Shopping lists</a>
-                <div>
-                    <div>
-                        <div>
-                            <a href="/#/logout">Logout</a>
-                        </div>
-                        <div>
-                            <a href="/#/friends">
-                                Friends
-                            </a>       
-                        </div>    
-                    </div>
-                </div>
+    const view = `
+            <nav class="navbar" >
+                <a href="/#/" class="logo">Shopping lists</a>
+                <div class="dropdown" tabindex="0" alt="menu">
+                    <button class="dropbtn" id="menu" tabindex="0">   ${user}
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/#/friends" tabindex="0">Friends</a>  
+                        <a href="/#/logout" tabindex="0">Logout</a>
+                    </div>  
+                </div>        
             </nav>
         `;
     return view;

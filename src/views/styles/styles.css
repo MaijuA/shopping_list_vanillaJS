@@ -16,7 +16,7 @@ body {
 }
 
 section {
-  padding: 0.5rem;
+  padding: 1rem;
   padding-bottom: 3rem;
 }
 
@@ -58,12 +58,15 @@ input[type="text"] {
   box-sizing: border-box;
   max-width: 100%;
   box-shadow: inset 1px 1px 3px 0px rgba(134, 134, 134, 0.21);
+}
+
+::placeholder {
   color: grey;
 }
 
 /* Buttons to add lists or items */
-.button {
-  background-color: #3fb0ac;
+.add,
+.addList {
   background-color: #438945;
   color: white;
   border: 0.1rem solid #438945;
@@ -78,7 +81,7 @@ input[type="text"] {
   transition-duration: 0.4s;
 }
 
-.button:hover {
+.add:hover {
   background-color: #173e43;
   color: white;
   border: 0.1rem #173e43;
@@ -93,7 +96,7 @@ ol li {
   padding-bottom: 1rem;
 }
 
-/* item delete button */
+/* delete item button */
 li > button {
   font-weight: normal;
   background: none;
@@ -103,7 +106,7 @@ li > button {
   color: #173e43;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 900px) {
   ol {
     columns: 2;
     padding: 16px 0;
@@ -117,22 +120,5 @@ li > button {
 
   .home ol {
     columns: 1;
-  }
-}
-
-@media screen and (min-width: 900px) {
-  ol {
-    columns: 3;
-    padding: 16px 0;
-    line-height: 20px;
-  }
-
-  ol > li {
-    display: inline-block;
-    width: 90%;
-  }
-
-  .home ol {
-    columns: 2;
   }
 }

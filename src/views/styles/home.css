@@ -1,6 +1,6 @@
 .home {
   text-align: center;
-  padding: 0.5rem;
+  padding: 1rem;
   color: #173e43;
   text-decoration: none;
   padding-bottom: 3rem;
@@ -20,6 +20,7 @@
   background: #f6f6f8;
 }
 
+/* list sharing information */
 .listParagraph {
   font-size: 0.9rem;
   color: #e40c2b;

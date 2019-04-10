@@ -22,9 +22,9 @@ const routes = {
 
 // Takes URL, checks the supported routes and renders content
 const router = async () => {
-  const header = null || document.getElementById("header_container");
-  const content = null || document.getElementById("page_container");
-  const footer = null || document.getElementById("footer_container");
+  const header = null || document.getElementsByTagName("header")[0];
+  const content = null || document.getElementsByTagName("main")[0];
+  const footer = null || document.getElementsByTagName("footer")[0];
 
   // Navbar and footer
   header.innerHTML = await Navbar.render();

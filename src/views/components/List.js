@@ -1,26 +1,19 @@
 import Utils from "../../services/Utils.js";
-import { createDeleteButton, removeObject } from "./Home.js";
+import { createDeleteButton, removeObject, listNames } from "./Home.js";
 
-let listTitle = "";
-let names = [];
-let friendsDefault = [
-  { name: "Alice", shared: false },
-  { name: "Bob", shared: false },
-  { name: "Carol", shared: false },
-  { name: "David", shared: false }
-];
+let listObject = {};
 
-let friends = [];
+export let updatedLists = [];
 
 function createListElement(object) {
-  let li = document.createElement("li");
-  li.setAttribute("id", "listItem");
+  const li = document.createElement("li");
+  li.setAttribute("tabIndex", "0");
 
-  // is the item marked as bought or not
-  if (object.done) {
-    li.classList.add("done");
+  // mark the bought items as bought
+  if (object.bought) {
+    li.classList.add("bought");
   } else {
-    li.classList.add("li");
+    li.classList.add("notBought");
   }
 
   li.appendChild(document.createTextNode(object.name));
@@ -28,99 +21,125 @@ function createListElement(object) {
   return li;
 }
 
+// add new item to the list
 function eventHandlerAdd(event) {
   event = event || window.event;
+  if (event.target.classList.contains("add")) {
+    if (newItem.value.length < 1) return;
+    // check if item already exists
+    const alreadyExists = listObject.items.find(item => {
+      return newItem.value.toLowerCase() === item.name.toLowerCase();
+    });
+    if (alreadyExists) {
+      alert("Item is already on the list!");
+      newItem.value = "";
+      return;
+    }
 
-  if (newItem.value.length < 1) return;
-  let alreadyExists = names.find(name => {
-    return newItem.value.toLowerCase() === name.name.toLowerCase();
-  });
-  if (alreadyExists) {
-    alert("Item is already on the list!");
+    const itemObject = {
+      name: newItem.value,
+      bought: false
+    };
+
+    listObject.items.push(itemObject);
+
+    const li = document.createElement("li");
+    li.classList.add("notBought");
+    const liText = document.createTextNode(newItem.value);
+    li.appendChild(liText);
+    const button = document.createElement("button");
+    button.classList.add("dBtn");
+    button.setAttribute("alt", "Delete");
+    const dBtnText = document.createTextNode("X");
+    button.appendChild(dBtnText);
+    li.appendChild(button);
+    const div = document.createElement("div");
+    div.appendChild(li);
+
+    list.innerHTML = div.innerHTML + list.innerHTML;
     newItem.value = "";
-    return;
+
+    // save changes
+    updatedLists = updateList(updatedLists, listObject);
+    localStorage.setItem("home", JSON.stringify(updatedLists));
   }
-  let nameObject = new Object();
-  nameObject = {
-    name: newItem.value,
-    done: false
-  };
-  names.push(nameObject);
-  let listItem =
-    "<li id='listItem' class='li'>" +
-    newItem.value +
-    "<button class='dBtn'>X</button></li>";
-  list.innerHTML = listItem + list.innerHTML;
-  localStorage.setItem(listTitle + "items", JSON.stringify(names));
-  newItem.value = "";
 }
 
+// mark item as bought/not bought or delete item
 function eventHandler(event) {
   event = event || window.event;
   // mark item as bought/not bought
   let str = event.target.textContent;
-  if (event.target.classList.contains("li")) {
-    names = editObject("done", names, str);
-    event.target.classList.replace("li", "done");
-  } else if (event.target.classList.contains("done")) {
-    names = editObject("li", names, str);
-    event.target.classList.replace("done", "li");
+  if (event.target.classList.contains("notBought")) {
+    listObject.items = editObject("bought", listObject.items, str);
+    event.target.classList.replace("notBought", "bought");
+  } else if (event.target.classList.contains("bought")) {
+    listObject.items = editObject("notBought", listObject.items, str);
+    event.target.classList.replace("bought", "notBought");
   }
   // delete item
   if (event.target.classList.contains("dBtn")) {
     event.target.parentElement.classList.add("delete");
-    let str = event.target.parentElement.textContent;
+    str = event.target.parentElement.textContent;
     str = str.substring(0, str.length - 1);
-    removeObject(names, str, true);
+    listObject.items = removeObject(listObject.items, str);
   }
-  localStorage.setItem(listTitle + "items", JSON.stringify(names));
+  // save changes
+  updatedLists = updateList(updatedLists, listObject);
+  localStorage.setItem("home", JSON.stringify(updatedLists));
 }
 
+// share or unshare list
 function eventHandlerShare(event) {
   event = event || window.event;
-  let str = event.target.textContent;
-  if (event.target.classList.contains("share")) {
-    let confirmUser = confirm(
+  const str = event.target.textContent;
+
+  if (event.target.classList.contains("unshared")) {
+    const confirmUser = confirm(
       "Do you want to share the list with " + str + "?"
     );
     if (confirmUser) {
-      event.target.classList.replace("share", "shared");
-      friends = editObject("shared", friends, str);
+      event.target.classList.replace("unshared", "shared");
+      listObject.friends = editObject("shared", listObject.friends, str);
     }
   } else if (event.target.classList.contains("shared")) {
-    let confirmUser = confirm(
+    const confirmUser = confirm(
       "Do you want to unshare the list with " + str + "?"
     );
     if (confirmUser) {
-      event.target.classList.replace("shared", "share");
-      friends = editObject("share", friends, str);
+      event.target.classList.replace("shared", "unshared");
+      listObject.friends = editObject("unshared", listObject.friends, str);
     }
   }
-  localStorage.setItem(listTitle + "friends", JSON.stringify(friends));
+
+  // save changes
+  updatedLists = updateList(updatedLists, listObject);
+  localStorage.setItem("home", JSON.stringify(updatedLists));
 }
 
+// change items as bought/not bought or lists as shared/unshared
 function editObject(classString, list, str) {
   let object = {};
-  // classes for bought or not bought
+  // bought or not bought
   switch (classString) {
-    case "li": {
+    case "notBought": {
       str = str.substring(0, str.length - 1);
       object = {
         name: str,
-        done: false
+        bought: false
       };
       break;
     }
-    case "done": {
+    case "bought": {
       str = str.substring(0, str.length - 1);
       object = {
         name: str,
-        done: true
+        bought: true
       };
       break;
     }
-    // classes for shared or not shared
-    case "share": {
+    // shared or not shared
+    case "unshared": {
       object = {
         name: str,
         shared: false
@@ -135,95 +154,132 @@ function editObject(classString, list, str) {
       break;
     }
   }
-  const index = list.findIndex(item => item.name === str);
+  const index = list.findIndex(obj => obj.name === str);
   list[index] = object;
   return list;
 }
 
+// check if the list is shared and return a suitable class
 function isListShared(friendObject) {
   if (friendObject.shared) return "shared";
-  return "share";
+  return "unshared";
 }
 
-let List = {
+// update list with a changed object
+function updateList(list, listObject) {
+  const index = list.findIndex(list => list.id === listObject.id);
+  list[index] = listObject;
+  return list;
+}
+
+function createView(listObject, ol) {
+  const div = document.createElement("div");
+  const section = document.createElement("section");
+  section.classList.add("section");
+  const a = document.createElement("a");
+  a.classList.add("link");
+  a.setAttribute("href", "/#/");
+  const aText = document.createTextNode("<<");
+  a.appendChild(aText);
+  section.appendChild(a);
+  const h1 = document.createElement("h1");
+  const h1Text = document.createTextNode(listObject.name);
+  h1.appendChild(h1Text);
+  h1.setAttribute("tabindex", "0");
+  section.appendChild(h1);
+  const form = document.createElement("form");
+  const input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("id", "newItem");
+  input.setAttribute("maxlength", "24");
+  input.setAttribute("placeholder", "Add new item...");
+  input.setAttribute("alt", "Add new item");
+  form.appendChild(input);
+  const button = document.createElement("button");
+  button.classList.add("add");
+  const textButton = document.createTextNode("Add");
+  button.appendChild(textButton);
+  form.appendChild(button);
+  section.appendChild(form);
+  section.appendChild(ol);
+  const p = document.createElement("p");
+  p.setAttribute("tabindex", "0");
+  const pText = document.createTextNode("Share list");
+  p.appendChild(pText);
+  section.appendChild(p);
+  listObject.friends.map(friend => {
+    const button = document.createElement("button");
+    button.classList.add(isListShared(friend));
+    const btnText = document.createTextNode(friend.name);
+    button.appendChild(btnText);
+    section.appendChild(button);
+  });
+  div.appendChild(section);
+  return div;
+}
+
+const List = {
   render: async () => {
-    // get the list title
-    listTitle = "";
-    let request = Utils.parseRequestURL();
-    for (let i = 0; i < localStorage.length; i++) {
-      let key = localStorage.key(i);
-      let value = localStorage[key];
-      if (value === request.id) {
-        listTitle = key;
-      }
+    // default friends for a new list
+    const friendsDefault = [
+      { name: "Alice", shared: false },
+      { name: "Bob", shared: false },
+      { name: "Carol", shared: false },
+      { name: "David", shared: false }
+    ];
+
+    listObject = {};
+    updatedLists = [];
+
+    // get id from url
+    const request = Utils.parseRequestURL();
+
+    // get list from localStorage
+    const retrievedData = localStorage.getItem("home");
+    updatedLists = JSON.parse(retrievedData);
+    listObject = updatedLists.find(object => object.id === request.id);
+
+    // trying to solve an issue with firefox
+    if (listObject === undefined) {
+      updatedLists = listNames;
+      listObject = updatedLists.find(object => object.id === request.id);
     }
-    if (listTitle === "") {
+
+    // show error page if the list is not found
+    if (listObject === undefined) {
       window.location.replace("/#/error");
     }
 
-    // add friends and sharing information
-    friends = [];
-    console.log(listTitle);
-    let retrievedDataFriends = localStorage.getItem(listTitle + "friends");
-    console.log(retrievedDataFriends);
-    if (retrievedDataFriends === "null" || retrievedDataFriends === null) {
-      localStorage.setItem(
-        listTitle + "friends",
-        JSON.stringify(friendsDefault) // default friends to a new list
-      );
-      friends = friendsDefault;
-    } else {
-      friends = JSON.parse(retrievedDataFriends);
+    // show friends and sharing information
+    if (listObject.friends.length < 1) {
+      listObject.friends = friendsDefault;
+      const index = updatedLists.findIndex(list => list.id === listObject.id);
+      updatedLists[index] = listObject;
+      localStorage.setItem("home", JSON.stringify(updatedLists));
     }
+
+    const ol = document.createElement("ol");
+    ol.classList.add("list");
+    ol.setAttribute("id", "list");
 
     // get list items
-    let retrievedDataItems = localStorage.getItem(listTitle + "items");
-    if (retrievedDataItems !== null) {
-      names = JSON.parse(retrievedDataItems);
+    if (listObject.items !== null) {
+      listObject.items
+        .slice()
+        .reverse()
+        .map(item => {
+          ol.appendChild(createListElement(item));
+        });
     }
-    let ol = document.createElement("ol");
-    names
-      .slice()
-      .reverse()
-      .map(nameObject => {
-        ol.appendChild(createListElement(nameObject));
-      });
 
-    let view =
-      /*html*/ `
-    <section class="section">
-    <a class="link" href="/#/"><<</a><br>
-        <h1>${listTitle} </h1>
-    <form id="add-to-list">
-        <input type="text" id="newItem" maxlength="27" placeHolder="Add new item...">
-        <button id="addItem" class="button">Add</button>
-    </form>
-    <ol id="list" class="list">
-    ` +
-      ol.innerHTML +
-      `</ol>  
-      <p>Share list</p>
-      ` +
-      friends
-        .map(
-          friend =>
-            "<button id='share' class=" +
-            isListShared(friend) +
-            ">" +
-            friend.name +
-            "</button>"
-        )
-        .join(" ") +
-      `
-    </section>
-    `;
+    const view = createView(listObject, ol).innerHTML;
+    console.log(view);
     return view;
   },
   after_render: async () => {
+    // eventListeners
     // adding items
-    document
-      .getElementById("addItem")
-      .addEventListener("click", eventHandlerAdd, false);
+    document.addEventListener("click", eventHandlerAdd, false);
     // marking items as bought/not bought or deleting items
     document.addEventListener("click", eventHandler, false);
     // sharing list with friends
